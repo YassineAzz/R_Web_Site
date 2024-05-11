@@ -1,3 +1,11 @@
+library(shiny)
+library(tmap)
+library(leaflet)
+library(DT) 
+library(shinyjs)
+
+
+
 # Function to get coordinates based on the selected city
 getCityCoordinates <- function(city) {
   switch(city,
@@ -80,7 +88,7 @@ server <- function(input, output) {
     if (status_code(response) == 200) {
       json_data <- fromJSON(content(response, "text"))
       if (!is.null(json_data) && "longitude" %in% names(json_data) && "latitude" %in% names(json_data)) {
-        print(json_data)
+        #print(json_data)
         data <- st_as_sf(json_data, coords = c("longitude", "latitude"), crs = 4326, agr = "constant")
         output$mapPlot <- renderTmap({
           tmap_mode("view")
