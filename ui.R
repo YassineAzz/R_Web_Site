@@ -1,19 +1,20 @@
-library(shiny)
-library(leaflet)
-
 ui <- fluidPage(
-  titlePanel("Lab 5 - shinyapps"),  # Titre de l'application
+  useShinyjs(),
+  titlePanel("UrbanSpotter - In the 20 largest Sweden cities"),  
   sidebarLayout(
     sidebarPanel(
-      width = 3,  # Largeur du panneau latéral
-      selectInput("city", "Municipality:", choices = c("Stockholm", "Göteborg", "Malmö")),
+      width = 4,  
+      selectInput("city", "Municipality:", choices = c("Stockholm", "Göteborg", "Malmö", "Uppsala", "Västerås", "Örebro", "Linköping", "Helsingborg", "Jönköping", "Norrköping", "Lund", "Umeå", "Gävle", "Borås", "Eskilstuna", "Södertälje", "Karlstad", "Täby", "Växjö", "Halmstad"
+)),
       radioButtons("poiType", "POI type:", choices = c("Café", "Restaurant", "Pub")),
       actionButton("go", "Import POIs"),
-      hr(),  # Une ligne horizontale pour séparer les sections
-      h4("Total Records")  # Titre pour le total des enregistrements
+      hr(), 
+      h4("Total Records"),
+      verbatimTextOutput("totalRecords"),
+      DTOutput("poiTable") 
     ),
     mainPanel(
-      leafletOutput("mapPlot")  # Widget de carte Leaflet
+      leafletOutput("mapPlot")
     )
   )
 )
